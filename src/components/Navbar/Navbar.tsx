@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { motion } from 'framer-motion';
 
 const navItems = [
     { href: '/accounts', label: 'Energy Accounts' },
@@ -11,8 +10,6 @@ const navItems = [
 
 export default function Navbar() {
     const pathname = usePathname();
-    const activeIndex = navItems.findIndex(item => item.href === pathname);
-
     return (
         <nav className="bg-white shadow-sm border-b">
             <div className="max-w-6xl mx-auto px-4">
