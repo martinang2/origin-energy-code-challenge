@@ -18,11 +18,3 @@ const dueCharges: DueCharge[] = [
   { id: "D-0015", accountId: "A-0009", date: "2025-04-02", amount: -30 },
   { id: "D-0016", accountId: "A-0009", date: "2025-04-12", amount: -30 },
 ];
-
-export async function MOCK_DUE_CHARGES_API(): Promise<DueCharge[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(dueCharges);
-    }, 1000); // simulate a 1 second delay
-  });
-}

@@ -1,4 +1,5 @@
 import { Account, AccountType } from "@/lib/types/account";
+import { delay, http, HttpResponse } from "msw";
 
 const accounts: Account[] = [
   {
@@ -57,10 +58,23 @@ const accounts: Account[] = [
   },
 ];
 
-export async function MOCK_ENERGY_ACCOUNTS_API(): Promise<Account[]> {
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(accounts);
-    }, 1000); // simulate a 1 second delay
-  });
-}
+export const accountHandlers = {
+  success: () =>
+    http.get("/api/accounts", async () => {
+      await delay(200);
+      return HttpResponse.json({ data: accounts });
+    }),
+  loading: () =>
+    http.get("/api/accounts", async () => {
+      await delay("infinite");
+      return HttpResponse.json({});
+    }),
+  error: () =>
+    http.get("/api/accounts", async () => {
+      await delay(200);
+      return HttpResponse.json(
+        { message: "Unable to fetch accounts. Please try again later." },
+        { status: 500 }
+      );
+    }),
+};
