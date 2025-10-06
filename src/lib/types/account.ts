@@ -1,21 +1,23 @@
-
 export enum AccountType {
   Electricity = "ELECTRICITY",
   Gas = "GAS",
 }
 
-export type ElectricityAccount = {
+interface BaseAccount {
   id: string;
-  type: AccountType.Electricity
+  type: AccountType;
   address: string;
-  meterNumber: string;
-};
+  balance: number;
+}
 
-export type GasAccount = {
-  id: string;
-  type: AccountType.Gas ;
-  address: string;
+export interface ElectricityAccount extends BaseAccount {
+  type: AccountType.Electricity;
+  meterNumber: string;
+}
+
+export interface GasAccount extends BaseAccount {
+  type: AccountType.Gas;
   volume: number;
-};
+}
 
 export type Account = ElectricityAccount | GasAccount;

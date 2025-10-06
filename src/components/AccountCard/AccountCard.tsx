@@ -6,7 +6,6 @@ import { MouseEvent } from "react";
 
 type Props = {
   account: Account;
-  balance: number;
   onMakePayment?: (e: MouseEvent<HTMLButtonElement>) => void;
 };
 
@@ -26,12 +25,8 @@ const getAmountColor = (balance: number) => {
   return "text-gray-500";
 };
 
-export default function AccountCard({
-  account,
-  balance,
-  onMakePayment,
-}: Props) {
-  const { id, type, address } = account;
+export default function AccountCard({ account, onMakePayment }: Props) {
+  const { id, type, address, balance } = account;
 
   const typeLabel = {
     [AccountType.Electricity]: "Electricity",
