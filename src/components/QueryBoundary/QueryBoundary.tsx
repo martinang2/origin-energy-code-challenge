@@ -53,7 +53,7 @@ export function QueryBoundary<T extends UseQueryResult<unknown, unknown>>({
 // Default components remain the same...
 function DefaultLoadingFallback() {
   return (
-    <div className="flex justify-center items-center py-12">
+    <div className="flex justify-center items-center py-12" role="status">
       <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-orange-600"></div>
     </div>
   );
