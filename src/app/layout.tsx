@@ -26,14 +26,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable} ${geistMono.variable}`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} bg-white`}>
         <QueryProvider>
           <Navbar />
-          <main className="max-w-6xl mx-auto px-4 py-8">
-            {children}
-          </main>
+          <div className="bg-gray-100 min-h-screen">
+            <div className="max-w-6xl mx-auto px-4 py-8">{children}</div>
+          </div>
         </QueryProvider>
-
       </body>
     </html>
   );
