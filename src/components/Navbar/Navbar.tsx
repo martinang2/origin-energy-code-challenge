@@ -14,7 +14,7 @@ export default function Navbar() {
     <nav className="bg-white shadow-sm sticky top-0 z-50">
       <div className="max-w-6xl mx-auto px-4">
         <div className="flex justify-between items-center h-16">
-          <p className="text-xl font-bold text-orange-600">Origin Energy</p>
+          <p className="text-xl font-bold text-orange-600">Martys Energy</p>
 
           <div className="relative flex bg-gray-100 rounded-lg p-1">
             {navItems.map((item) => {

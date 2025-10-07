@@ -1,7 +1,7 @@
 import { Account, AccountType } from "@/lib/types/account";
 import { delay, http, HttpResponse } from "msw";
 
-const accounts: Account[] = [
+export const mockedAccounts: Account[] = [
   {
     id: "A-0001",
     type: AccountType.Electricity,
@@ -70,8 +70,8 @@ const accounts: Account[] = [
 export const accountHandlers = {
   success: () =>
     http.get("/api/accounts", async () => {
-      await delay(200);
-      return HttpResponse.json({ data: accounts });
+      await delay(1000);
+      return HttpResponse.json({ data: mockedAccounts });
     }),
   loading: () =>
     http.get("/api/accounts", async () => {
@@ -80,7 +80,7 @@ export const accountHandlers = {
     }),
   error: () =>
     http.get("/api/accounts", async () => {
-      await delay(200);
+      await delay(1000);
       return HttpResponse.json(
         { message: "Unable to fetch accounts. Please try again later." },
         { status: 500 }

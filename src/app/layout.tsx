@@ -15,7 +15,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Origin energy",
+  title: "Martys energy",
   description: "Coding challenge for the kings and queens",
 };
 
