@@ -26,7 +26,10 @@ export const usePayAccount = ({ onSuccess }: { onSuccess: () => void }) => {
   return useMutation({
     mutationFn: processPayment,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["accounts"] });
+      queryClient.invalidateQueries({ queryKey: ["accounts", "payments"] });
+      queryClient.resetQueries({
+        queryKey: ["accounts"],
+      });
       onSuccess();
     },
   });

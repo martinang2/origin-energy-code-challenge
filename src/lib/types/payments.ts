@@ -3,5 +3,6 @@ export type Payment = {
   accountId: string;
   date: string;
   amount: number;
-  status: "completed" | "failed" | "pending";
+  status: string;
+  cardLast4: string;
 };

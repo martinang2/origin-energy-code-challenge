@@ -83,8 +83,8 @@ export default function PaymentModal({
               </div>
             </div>
 
+            {/* TODO: FE Validations for forms fields */}
             <form onSubmit={handleSubmit} className="space-y-4">
-              {/* Amount */}
               <div>
                 <label className="block text-sm font-medium mb-1">Amount</label>
                 <div className="flex gap-2">
@@ -127,7 +127,6 @@ export default function PaymentModal({
                   <input
                     type="text"
                     value={expiry}
-                    // TODO: Validation here needs to be more robust, year shouldnt be in the past
                     onChange={(e) =>
                       setExpiry(
                         e.target.value
