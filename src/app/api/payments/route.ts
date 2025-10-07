@@ -1,21 +1,16 @@
+import { MOCK_PAYMENTS_API, mockPayments } from "@/mocks/handlers/payments";
 import { NextRequest, NextResponse } from "next/server";
 
-// TODO: Move this to lib/types
-type Payment = {
-  id: string;
-  accountId: string;
-  amount: number;
-  date: string;
-  status: string;
-  cardLast4: string;
-};
-
-// TODO: This needs to go into src/mocks/handlers/payments.ts along with msw handlers for storybook+test integration
-// For simplicity, using in-memory store here
-const payments: Payment[] = [];
-
 export async function GET() {
-  return NextResponse.json({ payments });
+  try {
+    const data = await MOCK_PAYMENTS_API();
+    return NextResponse.json({ data: data }, { status: 200 });
+  } catch {
+    return NextResponse.json(
+      { error: "Failed to load accounts" },
+      { status: 500 }
+    );
+  }
 }
 
 export async function POST(request: NextRequest) {
@@ -24,6 +19,7 @@ export async function POST(request: NextRequest) {
     const { accountId, amount, cardNumber } = body;
 
     // Basic validation
+    // TODO: this needs to be more robust to check all the fields
     if (!accountId || !amount) {
       return NextResponse.json(
         { error: "Missing required fields" },
@@ -40,7 +36,7 @@ export async function POST(request: NextRequest) {
       cardLast4: cardNumber?.slice(-4) || "4242",
     };
 
-    payments.unshift(payment);
+    mockPayments.unshift(payment);
 
     await new Promise((resolve) => setTimeout(resolve, 1000));
 

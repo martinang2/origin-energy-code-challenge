@@ -52,13 +52,7 @@ export default function PaymentModal({
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-      <div
-        className="fixed inset-0 backdrop-blur-sm"
-        style={{
-          backgroundColor: "rgba(255, 255, 255, 0.4)",
-        }}
-        onClick={handleClose}
-      />
+      <div className="fixed inset-0 backdrop-blur-sm" onClick={handleClose} />
 
       {/* Modal Content */}
       <div className="bg-white rounded-xl max-w-md w-full p-6 relative z-50 shadow-2xl">
@@ -69,7 +63,7 @@ export default function PaymentModal({
               <h2 className="text-xl font-semibold">Make Payment</h2>
               <button
                 onClick={handleClose}
-                className="p-1 hover:bg-gray-100 rounded"
+                className="p-1 hover:bg-gray-100 rounded hover:cursor-pointer"
               >
                 ✕
               </button>
@@ -177,7 +171,7 @@ export default function PaymentModal({
                   !expiry ||
                   !cvc
                 }
-                className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed"
+                className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 disabled:bg-gray-400 disabled:cursor-not-allowed hover:cursor-pointer"
               >
                 {paymentMutation.isPending ? (
                   <div className="flex items-center justify-center">
@@ -218,7 +212,7 @@ export default function PaymentModal({
 
             <button
               onClick={handleClose}
-              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors"
+              className="w-full bg-blue-600 text-white py-3 rounded-lg font-medium hover:bg-blue-700 transition-colors hover:cursor-pointer"
             >
               Close
             </button>
