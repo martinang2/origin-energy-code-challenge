@@ -28,21 +28,21 @@ describe("AccountCard", () => {
   const zeroBalance: Account = { ...electricity, balance: 0 };
 
   it("renders electricity account details", () => {
-    render(<AccountCard account={electricity} />);
+    render(<AccountCard account={electricity} onMakePayment={() => {}} />);
     expect(screen.getByText("Electricity")).toBeInTheDocument();
     expect(screen.getByText("Meter No: 1234567890")).toBeInTheDocument();
     expect(screen.getByText("$50.00")).toHaveClass("text-green-600");
   });
 
   it("renders gas account details", () => {
-    render(<AccountCard account={gas} />);
+    render(<AccountCard account={gas} onMakePayment={() => {}} />);
     expect(screen.getByText("Gas")).toBeInTheDocument();
     expect(screen.getByText("Volume: 3034")).toBeInTheDocument();
     expect(screen.getByText("$-10.00")).toHaveClass("text-red-600");
   });
 
   it("renders zero balance in gray", () => {
-    render(<AccountCard account={zeroBalance} />);
+    render(<AccountCard account={zeroBalance} onMakePayment={() => {}} />);
     expect(screen.getByText("$0.00")).toHaveClass("text-gray-500");
   });
 

@@ -2,11 +2,10 @@
 
 import { AccountType, Account } from "@/lib/types";
 import { formatCurrency } from "@/lib/utils/format";
-import { MouseEvent } from "react";
 
 type Props = {
   account: Account;
-  onMakePayment?: (e: MouseEvent<HTMLButtonElement>) => void;
+  onMakePayment: (account: Account) => void;
 };
 
 const getAccountDetails = (account: Account) => {
@@ -71,8 +70,8 @@ export default function AccountCard({ account, onMakePayment }: Props) {
           <div className="mt-3">
             <button
               type="button"
-              onClick={onMakePayment}
-              className="text-red-600 hover:underline font-medium"
+              onClick={() => onMakePayment(account)}
+              className="text-white bg-blue-500 hover:bg-blue-600  font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2  dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800 hover:cursor-pointer"
             >
               Make a payment
             </button>

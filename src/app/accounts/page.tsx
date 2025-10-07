@@ -7,9 +7,11 @@ import { useAccounts } from "@/hooks/useAccounts";
 import PageHeader from "@/components/PageHeader/PageHeader";
 import SearchInput from "@/components/SearchInput/SearchInput";
 import EnergyTypeFilter from "@/components/EnergyFilter/EnergyFilter";
+import PaymentModal from "@/components/PaymentModal/PaymentModal";
 
 export default function AccountsPage() {
   const accountsQuery = useAccounts();
+
   const [filters, setFilters] = useState({
     search: "",
     type: "all" as AccountType | "all",
@@ -17,6 +19,14 @@ export default function AccountsPage() {
 
   const updateFilter = (key: keyof typeof filters, value: string) => {
     setFilters((prev) => ({ ...prev, [key]: value }));
+  };
+
+  const [selectedAccount, setSelectedAccount] = useState<Account | null>(null);
+  const [isPaymentModalOpen, setIsPaymentModalOpen] = useState(false);
+
+  const handleMakePayment = (account: Account) => {
+    setSelectedAccount(account);
+    setIsPaymentModalOpen(true);
   };
 
   return (
@@ -34,7 +44,7 @@ export default function AccountsPage() {
           {(accounts) => (
             <>
               <div className=" mx-auto space-y-4">
-                {/* TODO: Add a useDebounced hook to optimize search input */}
+                {/* Maybe: Add a useDebounced hook to optimize search if BE uses seperate searchParams calls  */}
                 <SearchInput
                   value={filters.search}
                   onChange={(value) => updateFilter("search", value)}
@@ -46,11 +56,20 @@ export default function AccountsPage() {
                   onTypeChange={(type) => updateFilter("type", type)}
                 />
 
-                <AccountsContent accounts={accounts} filters={filters} />
+                <AccountsContent
+                  accounts={accounts}
+                  filters={filters}
+                  onMakePayment={handleMakePayment}
+                />
               </div>
             </>
           )}
         </QueryBoundary>
+        <PaymentModal
+          isOpen={isPaymentModalOpen}
+          onClose={() => setSelectedAccount(null)}
+          account={selectedAccount}
+        />
       </div>
     </main>
   );
@@ -60,9 +79,11 @@ export default function AccountsPage() {
 function AccountsContent({
   accounts,
   filters,
+  onMakePayment,
 }: {
   accounts: Account[];
   filters: { search: string; type: AccountType | "all" };
+  onMakePayment: (account: Account) => void;
 }) {
   const filteredAccounts = useMemo(() => {
     return accounts.filter((account) => {
@@ -85,13 +106,19 @@ function AccountsContent({
         hasActiveFilters={filters.search !== "" || filters.type !== "all"}
       />
 
-      <AccountsGrid accounts={filteredAccounts} />
+      <AccountsGrid accounts={filteredAccounts} onMakePayment={onMakePayment} />
     </div>
   );
 }
 
 // TODO: Move to  src/components: Test + storybook
-function AccountsGrid({ accounts }: { accounts: Account[] }) {
+function AccountsGrid({
+  accounts,
+  onMakePayment,
+}: {
+  accounts: Account[];
+  onMakePayment: (account: Account) => void;
+}) {
   if (accounts.length === 0) {
     return <EmptyState />;
   }
@@ -99,7 +126,11 @@ function AccountsGrid({ accounts }: { accounts: Account[] }) {
   return (
     <section className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-3">
       {accounts.map((account) => (
-        <AccountCard key={account.id} account={account} />
+        <AccountCard
+          key={account.id}
+          account={account}
+          onMakePayment={onMakePayment}
+        />
       ))}
     </section>
   );
