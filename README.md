@@ -6,7 +6,7 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
  - Install packages with ```yarn```
 
 ```
-# Dev environment connecting to BE (Origin testers pls use this)
+# Dev environment connecting to BE (reccomended)
 yarn dev
 # Dev environment connected to Mock service workers (msw)
 yarn dev:mock
